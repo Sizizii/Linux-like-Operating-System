@@ -1,0 +1,89 @@
+--------------------checkpoint 1--------------------
+
+2022/3/20
+bug1: when try to enable the paging, the kernel will begin to reboot.
+reason: when we set the value in the register ,we first set up cr0, then we set up cr4
+solution: we should set up cr4 before setting up cr0
+
+2022/3/20
+bug2: when we use the assembly linkage, the program raise error that "no such instruction" for the assemble files
+reason: when try to include the assemble files in the c files, the complier will not work
+solution: make the assemble to be global and declare them in the .h file without including assemble files.
+ 
+2022/3/20
+bug3: when I press the caps on the keyboard, the next letter i print out is not changed
+reason: the caps_flag is still 0
+solution: I change the judgement situation of caps_press
+
+2022/3/19
+bug4: the keyboard can only response to one key press, and after that it will stuck.
+reason: no EOI is sent in some situation
+solution: send EOI for every situation
+
+--------------------checkpoint 2--------------------
+2022/3/27
+bug1: after press shift, the following output keys will continue being the shift type and never return normal type anymore
+reason: never reach the judgement of shift release
+solution: change the shift release to an outter loop.
+
+2022/3/27
+bug2: the second char that should be in the same line with the first line goes to the second line
+reason: wrong judgement of screen coordinate
+solution: set the last line x coordinate to 79, not 80
+
+2022/3/27
+bug3: when continue to press more than 128 times, the backspace is not working
+reason: when judgement keybuffer is full is true, putc will not work
+solution: when keybuffer is full, let putc work normally
+
+
+2022/3/26
+bug4: read_data will induce Page Fault
+reason: I use memcpy to copy the whole block one by one. When it reaches the last block, I forget to consider the situation that the last block shouldn't be entirely copied to the buffer.
+solution: set the copy nbytes for the last block correctly.
+
+-------------------checkpoint 3----------------------
+2022/4/8
+bug1: using backspace will also delete the characters written by terminal
+reason: terminal write simply write the character into the keyboard buffer, so backspace can access without noticing 
+solution: set a global variable to indicate the terminal region and prevent access by user
+
+2022/4/10
+bug2: when call the execute, it cannot return to its parent when use exit()
+reason: the system call handler doesn't set up properly and miss to save some registers
+solution: set up the hardware context structure as mentioned
+
+2022/4/10
+bug3: Next time press l after ctrl+l is pressed , the whole screen is cleared, too
+reason: ctrl_off not detected
+solution: put judgement of crtl_off in the out loop
+
+-------------------checkpoint 4----------------------
+2022/4/16
+bug1: page fault when testing cat 
+reason: parsed arguments weren't stored into the new pcb structure
+solution: initialize and store args into args_buf in execute
+
+bug2: could not read arguments when testing getargs
+reason: system call failed for getargs
+solution: add the function into systemcall_table and change the checking conditions for system call number in handler_link.S
+
+-------------------checkpoint 5----------------------
+2022/4/29
+bug1: cannot switch from one shell to the other shell in other terminal
+reason: when initialize the shell, store the previous stack outside the function "process switch", so when we try to 
+switch from one shell to the other, the stack is wrong
+solution: store the stack of previous shell in the function "process switch" as other process
+
+2022/4/30
+bug2: when execute one program in terminal 0, the process in other terminals seems to get stuck from time to time
+reason: we use the same rtc for three terminals, so the time will be confused since the terminal doesn't execute all the time when scheduling is working
+solution: set up a rtc for each terminal, and update it when the terminal is currently executing.
+
+2022/4/30
+bug3: When switch between pingpong in different terminals, the image of some part of pingpong is not correct
+reason: The calculation of video buffer is wrong
+solution: modify functions and variables in terminal write to make buffer correct 
+
+
+

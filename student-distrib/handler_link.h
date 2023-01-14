@@ -1,0 +1,33 @@
+#ifndef HANDLER_LINK_H
+#define HANDLER_LINK_H
+
+
+extern uint32_t exception_handler_linkage_00;
+extern uint32_t exception_handler_linkage_01;
+extern uint32_t exception_handler_linkage_02;
+extern uint32_t exception_handler_linkage_03;
+extern uint32_t exception_handler_linkage_04;
+extern uint32_t exception_handler_linkage_05;
+extern uint32_t exception_handler_linkage_06;
+extern uint32_t exception_handler_linkage_07;
+extern uint32_t exception_handler_linkage_08;
+extern uint32_t exception_handler_linkage_09;
+extern uint32_t exception_handler_linkage_10;
+extern uint32_t exception_handler_linkage_11;
+extern uint32_t exception_handler_linkage_12;
+extern uint32_t exception_handler_linkage_13;
+extern uint32_t exception_handler_linkage_14;
+extern uint32_t exception_handler_linkage_15;
+extern uint32_t exception_handler_linkage_16;
+extern uint32_t exception_handler_linkage_17;
+extern uint32_t exception_handler_linkage_18;
+extern uint32_t exception_handler_linkage_19;
+
+extern uint32_t idt_default_handler_linkage;
+extern uint32_t pit_handler_linkage;
+extern uint32_t rtc_handler_linkage;
+extern uint32_t keyboard_handler_linkage;
+extern uint32_t systemcall_handler_linkage;
+
+#endif /* HANDLER_H */
+
